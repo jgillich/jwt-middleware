@@ -9,6 +9,7 @@ Programming Language applications. JWTs are typically used to protect API
 endpoints, and are often issued using OpenID Connect.
 
 [![Build Status](https://travis-ci.org/jgillich/jwt-middleware.svg?branch=master)](https://travis-ci.org/jgillich/jwt-middleware)
+[![GoDoc](https://godoc.org/github.com/jgillich/jwt-middleware?status.svg)](https://godoc.org/github.com/jgillich/jwt-middleware)
 
 ## Key Features
 
