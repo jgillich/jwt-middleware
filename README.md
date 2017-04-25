@@ -68,7 +68,7 @@ import (
   "net/http"
 
   "github.com/jgillich/jwt-middleware"
-  "github.com/codegangsta/negroni"
+  "github.com/urfave/negroni"
   "github.com/dgrijalva/jwt-go"
   "github.com/gorilla/context"
   "github.com/gorilla/mux"
