@@ -11,7 +11,8 @@ import (
 	"github.com/dgrijalva/jwt-go"
 )
 
-type userContextKey struct{}
+// TokenContextKey is used as context key for the token on http requests
+type TokenContextKey struct{}
 
 // A function called whenever an error is encountered
 type errorHandler func(w http.ResponseWriter, r *http.Request, err string)
@@ -51,18 +52,18 @@ type Options struct {
 	SigningMethod jwt.SigningMethod
 }
 
-// TokenValue retrieves the token from a http request
-func TokenValue(r *http.Request) (*jwt.Token, error) {
-	token, ok := r.Context().Value(userContextKey{}).(*jwt.Token)
+// ContextToken retrieves the token from the context of a http request
+func ContextToken(r *http.Request) (*jwt.Token, error) {
+	token, ok := r.Context().Value(TokenContextKey{}).(*jwt.Token)
 	if !ok {
 		return nil, errors.New("Token is not set for request")
 	}
 	return token, nil
 }
 
-// ClaimsValue retrieves the claims from a http request
-func ClaimsValue(r *http.Request) (jwt.MapClaims, error) {
-	token, err := TokenValue(r)
+// ContextClaims retrieves the claims from the context of a http request
+func ContextClaims(r *http.Request) (jwt.MapClaims, error) {
+	token, err := ContextToken(r)
 	if err != nil {
 		return nil, err
 	}
@@ -241,7 +242,7 @@ func (m *JWTMiddleware) CheckJWT(w http.ResponseWriter, r *http.Request) error {
 
 	// If we get here, everything worked and we can set the
 	// user property in context.
-	*r = *r.WithContext(context.WithValue(r.Context(), userContextKey{}, parsedToken))
+	*r = *r.WithContext(context.WithValue(r.Context(), TokenContextKey{}, parsedToken))
 
 	return nil
 }

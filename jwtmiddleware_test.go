@@ -193,7 +193,7 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 // in the token as json -> {"text":"bar"}
 func protectedHandler(w http.ResponseWriter, r *http.Request) {
 	// retrieve the token from the context (Gorilla context lib)
-	claims, err := ClaimsValue(r)
+	claims, err := ContextClaims(r)
 	if err != nil {
 		panic(err)
 	}

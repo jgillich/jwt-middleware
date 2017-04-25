@@ -39,7 +39,7 @@ import (
 )
 
 var myHandler = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-  claims, err := jwtmiddleware.ClaimsValue(r)
+  claims, err := jwtmiddleware.ContextClaims(r)
   if err != nil {
     // err is safe to ignore unless CredentialsOptional is set to true
     panic(err)
@@ -84,7 +84,7 @@ import (
 )
 
 var myHandler = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-    claims, err := jwtmiddleware.ClaimsValue(r)
+    claims, err := jwtmiddleware.ContextClaims(r)
     if err != nil {
       // err is safe to ignore unless CredentialsOptional is set to true
       panic(err)
