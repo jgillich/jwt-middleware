@@ -8,6 +8,8 @@ This module lets you authenticate HTTP requests using JWT tokens in your Go
 Programming Language applications. JWTs are typically used to protect API
 endpoints, and are often issued using OpenID Connect.
 
+[![Build Status](https://travis-ci.org/jgillich/jwt-middleware.svg?branch=master)](https://travis-ci.org/jgillich/jwt-middleware)
+
 ## Key Features
 
 * Ability to **check the `Authorization` header for a JWT**

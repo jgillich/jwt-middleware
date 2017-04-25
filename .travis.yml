@@ -1,0 +1,8 @@
+language: go
+go:
+  - 1.7.x
+  - master
+install:
+  - go get -u github.com/golang/dep/...
+  - dep ensure
+script: go test $(go list ./... | grep -v "vendor")
