@@ -51,12 +51,27 @@ type Options struct {
 	SigningMethod jwt.SigningMethod
 }
 
-type JWTMiddleware struct {
-	Options Options
+// TokenValue retrieves the token from a http request
+func TokenValue(r *http.Request) (*jwt.Token, error) {
+	token, ok := r.Context().Value(userContextKey{}).(*jwt.Token)
+	if !ok {
+		return nil, errors.New("Token is not set for request")
+	}
+	return token, nil
 }
 
-func OnError(w http.ResponseWriter, r *http.Request, err string) {
-	http.Error(w, err, http.StatusUnauthorized)
+// ClaimsValue retrieves the claims from a http request
+func ClaimsValue(r *http.Request) (jwt.MapClaims, error) {
+	token, err := TokenValue(r)
+	if err != nil {
+		return nil, err
+	}
+
+	return token.Claims.(jwt.MapClaims), nil
+}
+
+type JWTMiddleware struct {
+	Options Options
 }
 
 // New constructs a new Secure instance with supplied options.
@@ -70,7 +85,9 @@ func New(options ...Options) *JWTMiddleware {
 	}
 
 	if opts.ErrorHandler == nil {
-		opts.ErrorHandler = OnError
+		opts.ErrorHandler = func(w http.ResponseWriter, r *http.Request, err string) {
+			http.Error(w, err, http.StatusUnauthorized)
+		}
 	}
 
 	if opts.Extractor == nil {
@@ -227,23 +244,4 @@ func (m *JWTMiddleware) CheckJWT(w http.ResponseWriter, r *http.Request) error {
 	*r = *r.WithContext(context.WithValue(r.Context(), userContextKey{}, parsedToken))
 
 	return nil
-}
-
-// TokenValue retrieves the token from a http request
-func TokenValue(r *http.Request) (*jwt.Token, error) {
-	token, ok := r.Context().Value(userContextKey{}).(*jwt.Token)
-	if !ok {
-		return nil, errors.New("Token is not set for request")
-	}
-	return token, nil
-}
-
-// ClaimsValue retrieves the claims from a http request
-func ClaimsValue(r *http.Request) (jwt.MapClaims, error) {
-	token, err := TokenValue(r)
-	if err != nil {
-		return nil, err
-	}
-
-	return token.Claims.(jwt.MapClaims), nil
 }
