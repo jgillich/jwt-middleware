@@ -4,10 +4,11 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"github.com/dgrijalva/jwt-go"
 	"log"
 	"net/http"
 	"strings"
+
+	"github.com/dgrijalva/jwt-go"
 )
 
 // A function called whenever an error is encountered
@@ -229,8 +230,7 @@ func (m *JWTMiddleware) CheckJWT(w http.ResponseWriter, r *http.Request) error {
 
 	// If we get here, everything worked and we can set the
 	// user property in context.
-	newRequest := r.WithContext(context.WithValue(r.Context(), m.Options.UserProperty, parsedToken))
-	// Update the current request with the new context information.
-	*r = *newRequest
+	*r = *r.WithContext(context.WithValue(r.Context(), m.Options.UserProperty, parsedToken))
+
 	return nil
 }
