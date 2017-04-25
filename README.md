@@ -35,7 +35,6 @@ import (
 
   "github.com/jgillich/jwt-middleware"
   "github.com/dgrijalva/jwt-go"
-  "github.com/gorilla/context"
 )
 
 var myHandler = http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
@@ -80,7 +79,6 @@ import (
   "github.com/jgillich/jwt-middleware"
   "github.com/urfave/negroni"
   "github.com/dgrijalva/jwt-go"
-  "github.com/gorilla/context"
   "github.com/gorilla/mux"
 )
 
