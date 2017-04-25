@@ -2,7 +2,7 @@ package main
 
 import (
 	"encoding/json"
-	"github.com/auth0/go-jwt-middleware"
+	"github.com/jgillich/jwt-middleware"
 	"github.com/codegangsta/negroni"
 	"github.com/dgrijalva/jwt-go"
 	"github.com/gorilla/mux"

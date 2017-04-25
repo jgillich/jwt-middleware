@@ -12,7 +12,7 @@ This module lets you authenticate HTTP requests using JWT tokens in your Go Prog
 ## Installing
 
 ````bash
-go get github.com/auth0/go-jwt-middleware
+go get github.com/jgillich/jwt-middleware
 ````
 
 ## Using it
@@ -27,7 +27,7 @@ import (
   "fmt"
   "net/http"
 
-  "github.com/auth0/go-jwt-middleware"
+  "github.com/jgillich/jwt-middleware"
   "github.com/dgrijalva/jwt-go"
   "github.com/gorilla/context"
 )
@@ -67,7 +67,7 @@ import (
   "fmt"
   "net/http"
 
-  "github.com/auth0/go-jwt-middleware"
+  "github.com/jgillich/jwt-middleware"
   "github.com/codegangsta/negroni"
   "github.com/dgrijalva/jwt-go"
   "github.com/gorilla/context"
@@ -118,7 +118,7 @@ type Options struct {
   // Default value: "user"
   UserProperty string
   // The function that will be called when there's an error validating the token
-  // Default value: https://github.com/auth0/go-jwt-middleware/blob/master/jwtmiddleware.go#L35
+  // Default value: https://github.com/jgillich/jwt-middleware/blob/master/jwtmiddleware.go#L35
   ErrorHandler errorHandler
   // A boolean indicating if the credentials are required or not
   // Default value: false
@@ -127,7 +127,7 @@ type Options struct {
   // Default: FromAuthHeader (i.e., from Authorization header as bearer token)
   Extractor TokenExtractor
   // Debug flag turns on debugging output
-  // Default: false  
+  // Default: false
   Debug bool
   // When set, all requests with the OPTIONS method will use authentication
   // Default: false
@@ -175,7 +175,7 @@ jwtmiddleware.New(jwtmiddleware.Options{
 
 ## Examples
 
-You can check out working examples in the [examples folder](https://github.com/auth0/go-jwt-middleware/tree/master/examples)
+You can check out working examples in the [examples folder](https://github.com/jgillich/jwt-middleware/tree/master/examples)
 
 
 ## What is Auth0?
