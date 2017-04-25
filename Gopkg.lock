@@ -1,0 +1,61 @@
+memo = "26f29590f436317247d27bcf64e72eb8ce59c7e93f2785ff928e671489acec2a"
+
+[[projects]]
+  name = "github.com/codegangsta/inject"
+  packages = ["."]
+  revision = "37d7f8432a3e684eef9b2edece76bdfa6ac85b39"
+  version = "v1.0-rc1"
+
+[[projects]]
+  branch = "master"
+  name = "github.com/dgrijalva/jwt-go"
+  packages = ["."]
+  revision = "2268707a8f0843315e2004ee4f1d021dc08baedf"
+
+[[projects]]
+  name = "github.com/go-martini/martini"
+  packages = ["."]
+  revision = "49411a5b646861ad29a6ddd5351717a0a9c49b94"
+  version = "v1.0"
+
+[[projects]]
+  branch = "master"
+  name = "github.com/gopherjs/gopherjs"
+  packages = ["js"]
+  revision = "265040a1352e0bb611e87f5b985bf83600c66cce"
+
+[[projects]]
+  branch = "master"
+  name = "github.com/gorilla/context"
+  packages = ["."]
+  revision = "08b5f424b9271eedf6f9f0ce86cb9396ed337a42"
+
+[[projects]]
+  branch = "master"
+  name = "github.com/gorilla/mux"
+  packages = ["."]
+  revision = "999ef73f5d50979cf6d12afed1726325b63f9570"
+
+[[projects]]
+  branch = "master"
+  name = "github.com/jtolds/gls"
+  packages = ["."]
+  revision = "bb0351aa7eb6f322f32667d51375f26a2bca6628"
+
+[[projects]]
+  branch = "master"
+  name = "github.com/smartystreets/assertions"
+  packages = [".","internal/go-render/render","internal/oglematchers"]
+  revision = "c9ee7d9e9a2aeec0bee7c4a516f3e0ad7cb7e558"
+
+[[projects]]
+  branch = "master"
+  name = "github.com/smartystreets/goconvey"
+  packages = ["convey","convey/gotest","convey/reporting"]
+  revision = "3bd662eac601ad6436e64776af2e112069eb2edc"
+
+[[projects]]
+  branch = "master"
+  name = "github.com/urfave/negroni"
+  packages = ["."]
+  revision = "c0db5feaa33826cd5117930c8f4ee5c0f565eec6"

@@ -1,0 +1,16 @@
+
+[[dependencies]]
+  branch = "master"
+  name = "github.com/dgrijalva/jwt-go"
+
+[[dependencies]]
+  branch = "master"
+  name = "github.com/gorilla/mux"
+
+[[dependencies]]
+  branch = "master"
+  name = "github.com/smartystreets/goconvey"
+
+[[dependencies]]
+  branch = "master"
+  name = "github.com/urfave/negroni"
