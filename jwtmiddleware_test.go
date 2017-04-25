@@ -10,7 +10,6 @@ import (
 	"testing"
 
 	"github.com/dgrijalva/jwt-go"
-	"github.com/gorilla/context"
 	"github.com/gorilla/mux"
 	. "github.com/smartystreets/goconvey/convey"
 	"github.com/urfave/negroni"
@@ -23,9 +22,6 @@ const defaultAuthorizationHeaderName = "Authorization"
 // envVarClientSecretName the environment variable to read the JWT environment
 // variable
 const envVarClientSecretName = "CLIENT_SECRET_VAR_SHHH"
-
-// userPropertyName is the property name that will be set in the request context
-const userPropertyName = "custom-user-property"
 
 // the bytes read from the keys/sample-key file
 // private key generated with http://kjur.github.io/jsjws/tool_jwt.html
@@ -167,7 +163,6 @@ func JWT(expectedSignatureAlgorithm jwt.SigningMethod) *JWTMiddleware {
 	return New(Options{
 		Debug:               false,
 		CredentialsOptional: false,
-		UserProperty:        userPropertyName,
 		ValidationKeyGetter: func(token *jwt.Token) (interface{}, error) {
 			if privateKey == nil {
 				var err error
@@ -198,9 +193,11 @@ func indexHandler(w http.ResponseWriter, r *http.Request) {
 // in the token as json -> {"text":"bar"}
 func protectedHandler(w http.ResponseWriter, r *http.Request) {
 	// retrieve the token from the context (Gorilla context lib)
-	u := context.Get(r, userPropertyName)
-	user := u.(*jwt.Token)
-	respondJSON(user.Claims.(jwt.MapClaims)["foo"].(string), w)
+	claims, err := ClaimsValue(r)
+	if err != nil {
+		panic(err)
+	}
+	respondJSON(claims["foo"].(string), w)
 }
 
 // Response quick n' dirty Response struct to be encoded as json

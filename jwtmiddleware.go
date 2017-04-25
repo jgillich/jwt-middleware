@@ -11,6 +11,8 @@ import (
 	"github.com/dgrijalva/jwt-go"
 )
 
+type userContextKey struct{}
+
 // A function called whenever an error is encountered
 type errorHandler func(w http.ResponseWriter, r *http.Request, err string)
 
@@ -27,10 +29,6 @@ type Options struct {
 	// It can be either a shared secret or a public key.
 	// Default value: nil
 	ValidationKeyGetter jwt.Keyfunc
-	// The name of the property in the request where the user information
-	// from the JWT will be stored.
-	// Default value: "user"
-	UserProperty string
 	// The function that will be called when there's an error validating the token
 	// Default value:
 	ErrorHandler errorHandler
@@ -69,10 +67,6 @@ func New(options ...Options) *JWTMiddleware {
 		opts = Options{}
 	} else {
 		opts = options[0]
-	}
-
-	if opts.UserProperty == "" {
-		opts.UserProperty = "user"
 	}
 
 	if opts.ErrorHandler == nil {
@@ -230,7 +224,26 @@ func (m *JWTMiddleware) CheckJWT(w http.ResponseWriter, r *http.Request) error {
 
 	// If we get here, everything worked and we can set the
 	// user property in context.
-	*r = *r.WithContext(context.WithValue(r.Context(), m.Options.UserProperty, parsedToken))
+	*r = *r.WithContext(context.WithValue(r.Context(), userContextKey{}, parsedToken))
 
 	return nil
+}
+
+// TokenValue retrieves the token from a http request
+func TokenValue(r *http.Request) (*jwt.Token, error) {
+	token, ok := r.Context().Value(userContextKey{}).(*jwt.Token)
+	if !ok {
+		return nil, errors.New("Token is not set for request")
+	}
+	return token, nil
+}
+
+// ClaimsValue retrieves the claims from a http request
+func ClaimsValue(r *http.Request) (jwt.MapClaims, error) {
+	token, err := TokenValue(r)
+	if err != nil {
+		return nil, err
+	}
+
+	return token.Claims.(jwt.MapClaims), nil
 }
