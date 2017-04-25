@@ -1,4 +1,4 @@
-# GO JWT Middleware
+# JWT Middleware for Go
 
 A middleware that will check that a [JWT](http://jwt.io/) is sent on the
 `Authorization` header and will then set the content of the JWT into the `user`
@@ -187,5 +187,5 @@ You can check out working examples in the [examples folder](https://github.com/j
 
 ## License
 
-This project is licensed under the MIT license. See the [LICENSE](LICENSE.txt)
+This project is licensed under the MIT license. See the [LICENSE](LICENSE)
 file for more info.
